@@ -9,14 +9,11 @@ import (
 
 func main() {
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("ok from green 1.1 - rafaelzelak"))
-	})
-
-	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("pong from green 1.1 - rafaelzelak"))
+		w.Write([]byte("It's alive!"))
 	})
 
 	http.HandleFunc("/users", routes.UsersHandler)
+	http.HandleFunc("/now", routes.NowHandler)
 
 	log.Println("listening on :8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
