@@ -5,10 +5,10 @@ services:
     image: traefik:v3.1
     container_name: traefik
     command:
-      - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
+      - "--api.dashboard=true"
     ports:
       - "80:80"
       - "8080:8080"
@@ -20,29 +20,17 @@ services:
     container_name: app-blue
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.blue.rule=Host(`${DOMAIN}`) && PathPrefix(`/`)"
+      - "traefik.http.routers.blue.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.blue.entrypoints=web"
       - "traefik.http.services.blue.loadbalancer.server.port=8080"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 10s
-      timeout: 2s
-      retries: 3
-      start_period: 5s
 
   app-green:
     image: app:${GREEN_TAG}
     container_name: app-green
     labels:
       - "traefik.enable=false"
-      - "traefik.http.routers.green.rule=Host(`${DOMAIN}`) && PathPrefix(`/`)"
+      - "traefik.http.routers.green.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.green.entrypoints=web"
       - "traefik.http.services.green.loadbalancer.server.port=8080"
     ports:
       - "8081:8080"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 10s
-      timeout: 2s
-      retries: 3
-      start_period: 5s
