@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"project/internal/routes"
+	"github.com/RafaelZelak/blue-green-demo/internal/routes"
 )
 
 func main() {

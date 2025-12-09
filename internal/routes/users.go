@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/brianvoe/gofakeit/v6"
-	"project/internal/models"
+	"github.com/RafaelZelak/blue-green-demo/internal/models"
 )
 
 func UsersHandler(w http.ResponseWriter, r *http.Request) {
