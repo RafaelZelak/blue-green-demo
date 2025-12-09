@@ -8,7 +8,11 @@ import (
 
 func main() {
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "ok from blue 1.0")
+		fmt.Fprint(w, "ok from 1.1 (green)")
+	})
+
+	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "pong from 1.1 (green)")
 	})
 
 	log.Println("listening on :8080")
