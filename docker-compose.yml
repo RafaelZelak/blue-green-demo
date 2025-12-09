@@ -16,7 +16,7 @@ services:
     container_name: app-blue
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.app-blue.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.app-blue.rule=PathPrefix(`/`)"
       - "traefik.http.routers.app-blue.entrypoints=web"
       - "traefik.http.services.app-blue.loadbalancer.server.port=8080"
     healthcheck:
@@ -31,7 +31,7 @@ services:
     container_name: app-green
     labels:
       - "traefik.enable=false"
-      - "traefik.http.routers.app-green.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.app-green.rule=PathPrefix(`/`)"
       - "traefik.http.routers.app-green.entrypoints=web"
       - "traefik.http.services.app-green.loadbalancer.server.port=8080"
     ports:
