@@ -1,16 +1,14 @@
-version: "3.9"
-
 services:
   traefik:
     image: traefik:v3.1
     container_name: traefik
     command:
-      - "--configFile=/traefik.yml"
+      - "--configFile=/etc/traefik/traefik.yml"
     ports:
-      - "80:80"       
-      - "8080:8080"   
+      - "80:80"
+      - "8080:8080"
     volumes:
-      - "./traefik/traefik.yml:/traefik.yml:ro"
+      - "./traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   app-blue:
@@ -18,9 +16,9 @@ services:
     container_name: app-blue
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.app.rule=Host(`${DOMAIN}`)"
-      - "traefik.http.routers.app.entrypoints=web"
-      - "traefik.http.services.app.loadbalancer.server.port=8080"
+      - "traefik.http.routers.app-blue.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.app-blue.entrypoints=web"
+      - "traefik.http.services.app-blue.loadbalancer.server.port=8080"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 10s
@@ -33,9 +31,9 @@ services:
     container_name: app-green
     labels:
       - "traefik.enable=false"
-      - "traefik.http.routers.app.rule=Host(`${DOMAIN}`)"
-      - "traefik.http.routers.app.entrypoints=web"
-      - "traefik.http.services.app.loadbalancer.server.port=8080"
+      - "traefik.http.routers.app-green.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.app-green.entrypoints=web"
+      - "traefik.http.services.app-green.loadbalancer.server.port=8080"
     ports:
       - "8081:8080"
     healthcheck:
