@@ -14,6 +14,7 @@ func main() {
 
 	http.HandleFunc("/users", routes.UsersHandler)
 	http.HandleFunc("/now", routes.NowHandler)
+	http.HandleFunc("/dice", routes.DiceHandler)
 
 	log.Println("listening on :8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
