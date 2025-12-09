@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"math/rand"
 	"net/http"
 	"time"
