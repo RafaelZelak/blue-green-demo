@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"fmt"
 
 	"github.com/RafaelZelak/blue-green-demo/internal/routes"
 )

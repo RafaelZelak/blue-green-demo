@@ -19,7 +19,7 @@ services:
     image: app:${BLUE_TAG}
     container_name: app-blue
     labels:
-      - "traefik.enable=false"
+      - "traefik.enable=true"
       - "traefik.http.routers.blue.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.blue.entrypoints=web"
       - "traefik.http.services.blue.loadbalancer.server.port=8080"
@@ -28,7 +28,7 @@ services:
     image: app:${GREEN_TAG}
     container_name: app-green
     labels:
-      - "traefik.enable=true"
+      - "traefik.enable=false"
       - "traefik.http.routers.green.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.green.entrypoints=web"
       - "traefik.http.services.green.loadbalancer.server.port=8080"
